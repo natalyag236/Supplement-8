@@ -3,6 +3,19 @@ from main import get_request
 import requests
 
 def get_request(url):
+    """
+    Sends an HTTP GET request to the specified URL and returns the response details.
+
+    Args:
+        url (str): The URL to which the GET request is sent.
+
+    Returns:
+        tuple: A tuple containing the status code and the response content. 
+              
+
+    Raises:
+        Exception: If the status code is in the range 400 to 499, a client error exception is raised.
+    """
     try:
         response = requests.get(url)
 
@@ -19,7 +32,7 @@ def get_request(url):
 
 
 def test_returns_status_code_and_response_text():
-    from main import get_request  # Import inside the test function to avoid circular import
+    from main import get_request  
 
     with patch('requests.get') as mock_request:
         url = 'https://echo.free.beeceptor.com'
