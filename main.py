@@ -58,6 +58,15 @@ def test_returns_status_code_and_json_when_json_content_type():
         assert status_code == 200
         assert response == {'key': 'value'}
 
+
+def get_postman_token_and_ip(url):
+    response = requests.get(url)
+    
+    postman_token = response.headers.get('Postman-Token', None)
+    ip_address = response.headers.get('X-Forwarded-For', None)
+
+    return postman_token, ip_address
+
 def test_raises_exception_for_client_error():
     with patch('requests.get') as mock_request:
         url = 'https://echo.free.beeceptor.com'
