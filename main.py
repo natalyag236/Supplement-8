@@ -100,11 +100,24 @@ def test_get_token_and_ip():
         assert postman_token == '1234567890abcdef'
         assert ip_address == '192.168.1.1'
 
+
+def send_post_request(url, payload):
+    response = requests.post(url, json=myobj)
+    return response.status_code, response.json()
+
+
+url = 'https://echo.free.beeceptor.com'
+myobj = {'hello': 'world'}
+status_code, response_json = send_post_request(url, myobj)
+
+print(f"Status Code: {status_code}")
+print(f"Response JSON: {response_json}")
+
 def test_post_request():
     url = 'https://echo.free.beeceptor.com'
-    payload = {'hello': 'world'}
+    myobj = {'hello': 'world'}
     
-    response = requests.post(url, json=payload)
+    response = requests.post(url, json=myobj)
     
     
     print(f"Status Code: {response.status_code}")
