@@ -59,7 +59,7 @@ def test_returns_status_code_and_json_when_json_content_type():
         assert response == {'key': 'value'}
 
 
-def get_postman_token_and_ip(url):
+def get__token_and_ip(url):
     """Sends a GET request to the given URL and extracts the Postman
     token and IP address from the response headers
 
@@ -100,6 +100,14 @@ def test_get_token_and_ip():
         assert postman_token == '1234567890abcdef'
         assert ip_address == '192.168.1.1'
 
-
+def test_post_request():
+    url = 'https://echo.free.beeceptor.com'
+    payload = {'hello': 'world'}
+    
+    response = requests.post(url, json=payload)
+    
+    
+    print(f"Status Code: {response.status_code}")
+    print(f"Response JSON: {response.json()}")
 
 
