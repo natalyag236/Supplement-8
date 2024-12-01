@@ -68,3 +68,20 @@ def test_raises_exception_for_client_error():
         result = get_request(url)
         assert result == "Error: Client error: 404"
 
+def test_get_token_and_ip():
+    with patch('requests.get') as mock_request:
+        url = 'https://echo.free.beeceptor.com'
+        
+        mock_request.return_value.headers = {
+            'Postman-Token': '1234567890abcdef',
+            'X-Forwarded-For': '192.168.1.1'
+        }
+
+        postman_token, ip_address = get__token_and_ip(url)
+        
+        assert postman_token == '1234567890abcdef'
+        assert ip_address == '192.168.1.1'
+
+
+
+
