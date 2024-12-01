@@ -1,7 +1,26 @@
 from unittest.mock import patch  
 from main import get_request 
+import requests
+
+def get_request(url):
+    try:
+        response = requests.get(url)
+
+        if 400 <= response.status_code <= 499:
+            raise Exception(f"Client error: {response.status_code}")
+
+        if 'application/json' in response.headers.get('Content-Type', ''):
+            return response.status_code, response.json()
+
+        return response.status_code, response.text
+
+    except Exception as e:
+        return f"Error: {e}"
+
 
 def test_returns_status_code_and_response_text():
+    from main import get_request  # Import inside the test function to avoid circular import
+
     with patch('requests.get') as mock_request:
         url = 'https://echo.free.beeceptor.com'
 
@@ -12,6 +31,7 @@ def test_returns_status_code_and_response_text():
         status_code, response = get_request(url)
         assert status_code == 200
         assert response == "Hello, world!"
+
 
 def test_returns_status_code_and_json_when_json_content_type():
     with patch('requests.get') as mock_request:
