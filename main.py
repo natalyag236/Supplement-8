@@ -60,6 +60,15 @@ def test_returns_status_code_and_json_when_json_content_type():
 
 
 def get_postman_token_and_ip(url):
+    """Sends a GET request to the given URL and extracts the Postman
+    token and IP address from the response headers
+
+    Args:
+        url (str): The URL to which the GET request is sent
+
+    Returns:
+        tuple: a tuple containig the postman token and ip address from the respone headers
+    """
     response = requests.get(url)
     
     postman_token = response.headers.get('Postman-Token', None)
