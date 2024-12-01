@@ -101,7 +101,16 @@ def test_get_token_and_ip():
         assert ip_address == '192.168.1.1'
 
 
-def send_post_request(url, payload):
+def send_post_request(url, myobj):
+    """Send a POST request to the specified URL with the provided JSON myobj.
+
+    Args:
+        url (str): the URL to which the POST request is sent
+        myobj (dict): The JSON data to be sent in the POST request
+
+    Returns:
+        tuple: a tuple containig the status code and the response JSON from the server
+    """
     response = requests.post(url, json=myobj)
     return response.status_code, response.json()
 
